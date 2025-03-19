@@ -2,14 +2,15 @@
 
 import { openai } from '@ai-sdk/openai';
 import { streamText } from 'ai';
+import { messages } from '../../../config/messages';
 
 export async function POST(req: Request) {
-  const { messages } = await req.json();
+  const { messages: chatMessages } = await req.json();
 
   const result = streamText({
     model: openai('gpt-4o'),
-    system: "You are a helpful assistant. Be concise and friendly in your responses.",
-    messages,
+    system: messages.systemPrompt,
+    messages: chatMessages,
   });
 
   return result.toDataStreamResponse();

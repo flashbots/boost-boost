@@ -1,14 +1,15 @@
 'use client';
 
 import { useChat } from '@ai-sdk/react';
+import { messages } from '../config/messages';
 
 export default function Chatbot() {
-  const { messages, input, handleInputChange, handleSubmit } = useChat({
+  const { messages: chatMessages, input, handleInputChange, handleSubmit } = useChat({
     initialMessages: [
       {
         id: '1',
         role: 'assistant',
-        content: 'I am Boost-Boost bot. I craft banger X-Boost name for you. Ready for some boost?',
+        content: messages.initialMessage,
       },
     ],
   });
@@ -17,7 +18,7 @@ export default function Chatbot() {
     <div className="flex flex-col h-screen max-w-3xl mx-auto p-4">
       <h1 className="text-3xl font-bold text-center mb-6">Boost-Boost</h1>
       <div className="flex-1 overflow-y-auto mb-4 space-y-4">
-        {messages.map(message => (
+        {chatMessages.map(message => (
           <div 
             key={message.id} 
             className={`p-3 rounded-lg ${
